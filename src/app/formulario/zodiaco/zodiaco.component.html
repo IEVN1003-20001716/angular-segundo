@@ -1,1 +1,75 @@
-<h1>Zodiaco</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Zodiacal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <h1 class="text-3xl font-bold text-center my-5">Signo Zodiacal Chino</h1>
+
+    <!-- Contenedor que envuelve todo para alinear el formulario a la derecha -->
+    <div class="flex justify-start min-h-screen items-start p-6">
+        
+        <!-- Formulario reducido y alineado a la derecha -->
+        <form [formGroup]="zodiacForm" class="bg-white p-6 shadow-lg rounded-lg w-96">
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-4">Datos personales</h3>
+            <div class="mb-4">
+              <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+              <input formControlName="nombre" id="nombre" autocomplete="off" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce tu nombre">
+            </div>
+            <div class="mb-4">
+              <label for="Apaterno" class="block text-sm font-medium text-gray-700">Apellido paterno:</label>
+              <input formControlName="Apaterno" id="Apaterno" autocomplete="off" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce tu apellido paterno">
+            </div>
+            <div class="mb-4">
+              <label for="Amaterno" class="block text-sm font-medium text-gray-700">Apellido materno:</label>
+              <input formControlName="Amaterno" id="Amaterno" autocomplete="off" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce tu apellido materno">
+            </div>
+          </div>
+        
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-4">Fecha de nacimiento</h3>
+            <div class="mb-4">
+              <label for="Dia" class="block text-sm font-medium text-gray-700">Día:</label>
+              <input formControlName="Dia" id="Dia" type="number" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce el día">
+            </div>
+            <div class="mb-4">
+              <label for="Mes" class="block text-sm font-medium text-gray-700">Mes:</label>
+              <input formControlName="Mes" id="Mes" type="number" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce el mes">
+            </div>
+            <div class="mb-4">
+              <label for="Año" class="block text-sm font-medium text-gray-700">Año:</label>
+              <input formControlName="Año" id="Año" type="number" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Introduce el año">
+            </div>
+          </div>
+        
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-4">Sexo</h3>
+            <label class="inline-flex items-center">
+              <input formControlName="sexo" type="radio" value="Masculino" class="text-indigo-600 focus:ring-indigo-500 border-gray-300"> 
+              <span class="ml-2 text-gray-700">Masculino</span>
+            </label><br>
+            <label class="inline-flex items-center">
+              <input formControlName="sexo" type="radio" value="Femenino" class="text-indigo-600 focus:ring-indigo-500 border-gray-300"> 
+              <span class="ml-2 text-gray-700">Femenino</span>
+            </label>
+          </div>
+        
+          <button class="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 transition" type="button" (click)="imprimir()">Imprimir</button>
+        </form>
+
+        <!-- Sección de resultados a la derecha -->
+        <div *ngIf="verResultados" class="ml-6 bg-purple-500 text-white p-4 rounded-lg shadow-lg w-96">
+          <p class="text-lg">Hola <strong>{{ zodiacForm.value.nombre }} {{ zodiacForm.value.Apaterno }} {{ zodiacForm.value.Amaterno }}</strong></p>
+          <p class="text-lg">Tienes {{ edad }} años</p>
+          <p class="text-lg">Tu signo Zodiacal es: <strong>{{ signoZodiacal }}</strong></p>
+          <img [src]="imagenSigno" alt="Signo Zodiacal" *ngIf="imagenSigno" class="mx-auto mt-4 w-32 h-32">
+        </div>
+    </div>
+
+</body>
+</html>
