@@ -11,7 +11,7 @@ import { from } from 'rxjs';
   templateUrl: './zodiaco.component.html',
   styleUrl: './zodiaco.component.css'
 })
-export class ZodiacoComponent {
+export default class ZodiacoComponent {
   zodiacForm: FormGroup;
   verResultados: boolean = false;
   edad: number = 0;
@@ -32,7 +32,7 @@ export class ZodiacoComponent {
 
   calcularEdad() {
     const dia = this.zodiacForm.value.Dia;
-    const mes = this.zodiacForm.value.Mes - 1; // Los meses en JavaScript son base 0 (enero es 0)
+    const mes = this.zodiacForm.value.Mes - 1; 
     const año = this.zodiacForm.value.Año;
 
     const fechaNacimiento = new Date(año, mes, dia);
