@@ -1,0 +1,81 @@
+<div class="max-w-7xl mx-auto p-8 bg-blue-100 rounded-lg shadow-md">
+  <h1 class="text-2xl font-bold mb-6">Registro de Empleados</h1>
+
+  <!-- Contenedor principal con flexbox -->
+  <div class="flex flex-col lg:flex-row lg:space-x-8">
+
+    <!-- Columna izquierda: Formulario -->
+    <div class="lg:w-1/2">
+      <div class="grid grid-cols-1 gap-1">
+        <div>
+          <label for="matricula" class="block text-gray-700">Matrícula</label>
+          <input [(ngModel)]="matricula" id="matricula" type="text" class="w-full px-4 py-2 border rounded" placeholder="Matrícula" />
+        </div>
+        <div>
+          <label for="nombre" class="block text-gray-700">Nombre</label>
+          <input [(ngModel)]="nombre" id="nombre" type="text" class="w-full px-4 py-2 border rounded" placeholder="Nombre" />
+        </div>
+        <div>
+          <label for="correo" class="block text-gray-700">Correo</label>
+          <input [(ngModel)]="correo" id="correo" type="email" class="w-full px-4 py-2 border rounded" placeholder="Correo" />
+        </div>
+        <div>
+          <label for="edad" class="block text-gray-700">Edad</label>
+          <input [(ngModel)]="edad" id="edad" type="number" class="w-full px-4 py-2 border rounded" placeholder="Edad" />
+        </div>
+        <div>
+          <label for="horasTrabajadas" class="block text-gray-700">Horas Trabajadas</label>
+          <input [(ngModel)]="horasTrabajadas" id="horasTrabajadas" type="number" class="w-full px-4 py-2 border rounded" placeholder="Horas Trabajadas" />
+        </div>
+        <!-- <button (click)="eliminarTodo()" class="px-6 py-2 bg-slate-950 text-white rounded hover:bg-red-700">Eliminar todos los empleados</button> -->
+      </div>
+
+      <!-- Botones debajo del formulario -->
+      <div class="mt-6 flex justify-between">
+        <button (click)="registrarEmpleado()" class="px-1 py-1 bg-gray-500 text-white rounded hover:bg-gray-700">
+          {{ editMode ? 'Modificar Empleado' : 'Registrar Empleado' }}
+        </button>
+        <button (click)="imprimirTabla()" class="px-1 py-1 bg-cyan-700 text-white rounded hover:bg-cyan-900">Imprimir Tabla</button>
+        <button (click)="modificarEmpleado()" class="px-1 py-1 bg-indigo-700 text-white rounded hover:bg-indigo-900">Modificar Empleado</button>
+        <button (click)="eliminarEmpleado()" class="px-1 py-1 bg-rose-700 text-white rounded hover:bg-rose-900">Eliminar Empleado</button>
+      </div>
+    </div>
+    
+
+
+    <!-- Columna derecha: Tabla -->
+    <div *ngIf="mostrarTabla" class="mt-8 lg:mt-0 lg:w-1/2 overflow-auto">
+      <h2 class="text-xl font-bold mb-4">Empleados Registrados</h2>
+      
+      <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+        <thead class="bg-blue-100 text-gray-600">
+          <tr>
+            <th class="py-2 px-4">Matrícula</th>
+            <th class="py-2 px-4">Nombre</th>
+            <th class="py-2 px-4">Correo</th>
+            <th class="py-2 px-4">Edad</th>
+            <th class="py-2 px-4">Horas Trabajadas</th>
+            <th class="py-2 px-4">Horas por Pagar</th>
+            <th class="py-2 px-4">Horas Extras</th>
+            <th class="py-2 px-4">Pago Total</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of empleados">
+            <td class="py-2 px-4">{{ emp.matricula }}</td>
+            <td class="py-2 px-4">{{ emp.nombre }}</td>
+            <td class="py-2 px-4">{{ emp.correo }}</td>
+            <td class="py-2 px-4">{{ emp.edad }}</td>
+            <td class="py-2 px-4">{{ emp.horasTrabajadas }}</td>
+            <td class="py-2 px-4">{{ emp.horasPorPagar }}</td>
+            <td class="py-2 px-4">{{ "$" + emp.horasExtras * 140}}</td>
+            <td class="py-2 px-4">{{ emp.pagoTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+       <!-- Muestra el total acumulado -->
+       <div>
+        <strong>Total Acumulado: {{ calcularTotalPagar() | currency }}</strong>
+    </div>
+    </div>
+  </div>

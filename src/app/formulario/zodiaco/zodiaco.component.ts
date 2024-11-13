@@ -1,15 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, Validators, ReactiveFormsModule } from '@angular/forms';
-import { from } from 'rxjs';
-
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-zodiaco',
   standalone: true,
   imports: [NgIf, NgFor, ReactiveFormsModule],
   templateUrl: './zodiaco.component.html',
-  styleUrl: './zodiaco.component.css'
+  styleUrls: ['./zodiaco.component.css']
 })
 export default class ZodiacoComponent {
   zodiacForm: FormGroup;
@@ -32,7 +30,7 @@ export default class ZodiacoComponent {
 
   calcularEdad() {
     const dia = this.zodiacForm.value.Dia;
-    const mes = this.zodiacForm.value.Mes - 1; 
+    const mes = this.zodiacForm.value.Mes - 1;
     const año = this.zodiacForm.value.Año;
 
     const fechaNacimiento = new Date(año, mes, dia);
@@ -48,49 +46,44 @@ export default class ZodiacoComponent {
   }
 
   obtenerSignoZodiacal() {
-    const dia = this.zodiacForm.value.Dia;
-    const mes = this.zodiacForm.value.Mes;
+    const año = this.zodiacForm.value.Año;
+    const signos = [
+      { nombre: 'Rata', años: [2020, 2008, 1996, 1984, 1972, 1960] },
+      { nombre: 'Buey', años: [2021, 2009, 1997, 1985, 1973, 1961] },
+      { nombre: 'Tigre', años: [2022, 2010, 1998, 1986, 1974, 1962] },
+      { nombre: 'Conejo', años: [2023, 2011, 1999, 1987, 1975, 1963] },
+      { nombre: 'Dragón', años: [2024, 2012, 2000, 1988, 1976, 1964] },
+      { nombre: 'Serpiente', años: [2025, 2013, 2001, 1989, 1977, 1965] },
+      { nombre: 'Caballo', años: [2026, 2014, 2002, 1990, 1978, 1966] },
+      { nombre: 'Cabra', años: [2027, 2015, 2003, 1991, 1979, 1967] },
+      { nombre: 'Mono', años: [2028, 2016, 2004, 1992, 1980, 1968] },
+      { nombre: 'Gallo', años: [2029, 2017, 2005, 1993, 1981, 1969] }
+    ];
 
-    if ((mes == 3 && dia >= 21) || (mes == 4 && dia <= 19)) {
-      this.signoZodiacal = 'Aries';
-      this.imagenSigno = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ91uLMlIcEZY4pIWq1GIJXWdQoHkIOjhs2Zw&s';
-    } else if ((mes == 4 && dia >= 20) || (mes == 5 && dia <= 20)) {
-      this.signoZodiacal = 'Tauro';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Buey.jpg';
-    } else if ((mes == 5 && dia >= 21) || (mes == 6 && dia <= 20)) {
-      this.signoZodiacal = 'Géminis';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Gallo.jpg';
-    } else if ((mes == 6 && dia >= 21) || (mes == 7 && dia <= 22)) {
-      this.signoZodiacal = 'Cáncer';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Dragon.jpg';
-    } else if ((mes == 7 && dia >= 23) || (mes == 8 && dia <= 22)) {
-      this.signoZodiacal = 'Leo';
-      this.imagenSigno = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36Cr-dEF7FIwGIw75wLfOweuMcIJSKMahSA&s';
-    } else if ((mes == 8 && dia >= 23) || (mes == 9 && dia <= 22)) {
-      this.signoZodiacal = 'Virgo';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Buey.jpg';
-    } else if ((mes == 9 && dia >= 23) || (mes == 10 && dia <= 22)) {
-      this.signoZodiacal = 'Libra';
-      this.imagenSigno = 'https://ccl.uanl.mx/wp-content/uploads/2023/10/06_horoscopo_chino_Mono-768x657-1.jpg';
-    } else if ((mes == 10 && dia >= 23) || (mes == 11 && dia <= 21)) {
-      this.signoZodiacal = 'Escorpio';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Caballo.jpg';
-    } else if ((mes == 11 && dia >= 22) || (mes == 12 && dia <= 21)) {
-      this.signoZodiacal = 'Sagitario';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Buey.jpg';
-    } else if ((mes == 12 && dia >= 22) || (mes == 1 && dia <= 19)) {
-      this.signoZodiacal = 'Capricornio';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Caballo.jpg';
-    } else if ((mes == 1 && dia >= 20) || (mes == 2 && dia <= 18)) {
-      this.signoZodiacal = 'Acuario';
-      this.imagenSigno = 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Caballo.jpg';
-    } else if ((mes == 2 && dia >= 19) || (mes == 3 && dia <= 20)) {
-      this.signoZodiacal = 'Piscis';
-      this.imagenSigno = 'assets/imagenes/piscis.png';
+    const signo = signos.find(s => s.años.includes(año));
+    if (signo) {
+      this.signoZodiacal = signo.nombre;
+      this.imagenSigno = this.obtenerImagenPorSigno(signo.nombre);
     } else {
       this.signoZodiacal = 'Desconocido';
       this.imagenSigno = '';
     }
+  }
+
+  obtenerImagenPorSigno(signo: string): string {
+    const imagenes: { [key: string]: string } = {
+      'Rata': 'https://fumigasin.com/wp-content/uploads/2024/06/01-rat-friends-nationalgeographic_1162144.jpg',
+      'Buey': 'https://peopleenespanol.com/thmb/ia0u33jxk7_bfFTLf1viDW9j5LA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/horoscopo-chino-buey-de-metal-2021-e93c7ebe89ab4c0daa8704d6e4a827dd.png',
+      'Tigre': 'https://media.gettyimages.com/id/1346341844/es/vector/a%C3%B1o-nuevo-tiger-paperart.jpg?s=612x612&w=gi&k=20&c=WHQuCOtwXa4hoByeS-Zp9jGS7KxdvvN79-LC31KsL9Y=',
+      'Conejo': 'https://www.clarin.com/2023/09/23/TSN1Cvpys_360x240__1.jpg',
+      'Dragón': 'https://img.freepik.com/fotos-premium/dragon-chino-sobre-fondo-blanco-hecho-inteligencia-artificial-ai_41969-12099.jpg?w=360',
+      'Serpiente': 'https://media.istockphoto.com/id/165930223/es/vector/a%C3%B1o-de-la-serpiente.jpg?s=612x612&w=0&k=20&c=KPbx-vCkDwNB1JCMkGDze2VG_TGLXit4M_u8JAQqOok=',
+      'Caballo': 'https://confuciomag.com/wp-content/uploads/2016/01/06_horoscopo_chino_Caballo.jpg',
+      'Cabra': 'https://www.clarin.com/2023/09/23/lBvOi_7yy_2000x1500__1.jpg',
+      'Mono': 'https://img.asmedia.epimg.net/resizer/v2/AYM47ANZSFGRBAE74BKVN4MDIM.jpg?auth=810dc6e8204f93610ba8c1daece7633adac5046a53d21f92c65819da84d87e6b&width=1472&height=828&smart=true',
+      'Gallo': 'https://i.ytimg.com/vi/oPt7fHX0UOk/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCrGHEaPOdmlp8fit-Ws10X8eoAIQ'
+    };
+    return imagenes[signo] || '';
   }
 
   imprimir() {
